@@ -19,7 +19,6 @@ jQuery(function($) {
 	scrollWindow();
 	counter();
 	jarallaxPlugin();
-	contactForm();
 	stickyFillPlugin();
 	animateReveal();
 
@@ -183,7 +182,36 @@ var siteMenuClone = function() {
 
 }; 
 
-
+var form = document.getElementById("my-form");
+    
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "Thanks for your submission!";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "Oops! There was a problem submitting your form"
+      });
+    }
+    form.addEventListener("submit", handleSubmit);
 
 
 // var siteIstotope = function() {
@@ -532,98 +560,7 @@ var jarallaxPlugin = function() {
 	});
 };
 
- var form = document.getElementById("my-form");
-    
-    async function handleSubmit(event) {
-      event.preventDefault();
-      var status = document.getElementById("my-form-status");
-      var data = new FormData(event.target);
-      fetch(event.target.action, {
-        method: form.method,
-        body: data,
-        headers: {
-            'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          status.innerHTML = "Thanks for your submission!";
-          form.reset()
-        } else {
-          response.json().then(data => {
-            if (Object.hasOwn(data, 'errors')) {
-              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
-            } else {
-              status.innerHTML = "Oops! There was a problem submitting your form"
-            }
-          })
-        }
-      }).catch(error => {
-        status.innerHTML = "Oops! There was a problem submitting your form"
-      });
-    }
-    form.addEventListener("submit", handleSubmit);
-
-var contactForm = function() {
-	if ($('#contactForm').length > 0 ) {
-		$( "#contactForm" ).validate( {
-			rules: {
-				name: "required",
-				email: {
-					required: true,
-					email: true
-				},
-				message: {
-					required: true,
-					minlength: 5
-				}
-			},
-			messages: {
-				name: "Please enter your name",
-				email: "Please enter a valid email address",
-				message: "Please enter a message"
-			},
-			errorElement: 'span',
-			errorLabelContainer: '.form-error',
-			/* submit via ajax */
-			submitHandler: function(form) {		
-				var $submit = $('.submitting'),
-					waitText = 'Submitting...';
-
-				$.ajax({   	
-			      type: "POST",
-			      url: "php/send-email.php",
-			      data: $(form).serialize(),
-
-			      beforeSend: function() { 
-			      	$submit.css('display', 'block').text(waitText);
-			      },
-			      success: function(msg) {
-	               if (msg == 'OK') {
-	               	$('#form-message-warning').hide();
-			            setTimeout(function(){
-	               		$('#contactForm').fadeOut();
-	               	}, 1000);
-			            setTimeout(function(){
-			               $('#form-message-success').fadeIn();   
-	               	}, 1400);
-		               
-		            } else {
-		               $('#form-message-warning').html(msg);
-			            $('#form-message-warning').fadeIn();
-			            $submit.css('display', 'none');
-		            }
-			      },
-			      error: function() {
-			      	$('#form-message-warning').html("Something went wrong. Please try again.");
-			         $('#form-message-warning').fadeIn();
-			         $submit.css('display', 'none');
-			      }
-		      });    		
-	  		}
-			
-		} );
-	}
-};
+ 
 
 var stickyFillPlugin = function() {
 	var elements = document.querySelectorAll('.unslate_co--sticky');
