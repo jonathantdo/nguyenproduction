@@ -36,7 +36,7 @@ var siteIstotope = function() {
     });
   });
   
-  $container.isotope({ filter: '*' });
+  $container.isotope({ filter: '.fitness' });
 
   $('#filters').on( 'click', 'a', function(e) {
   	e.preventDefault();
