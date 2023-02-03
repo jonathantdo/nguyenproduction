@@ -1409,11 +1409,7 @@ figure.dotted-bg:before {
   overflow: hidden;
 }
 
-@media (max-width: 991.98px) {
-  .testimonial-slider .owl-nav, .single-slider .owl-nav {
-    display: none;
-  }
-}
+
 
 .testimonial-slider .owl-nav .owl-prev,
 .testimonial-slider .owl-nav .owl-next, .single-slider .owl-nav .owl-prev,
