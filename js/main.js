@@ -195,8 +195,6 @@ var owlCarouselPlugin = function() {
 	$('.testimonial-slider').owlCarousel({
     center: true,
     items: 1,
-		        merge:true,
-
     loop: false,
     stagePadding: 20,
   	margin: 10,
