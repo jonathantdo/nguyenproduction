@@ -193,13 +193,13 @@ var siteMenuClone = function() {
 var owlCarouselPlugin = function() {
 
 	$('.testimonial-slider').owlCarousel({
-    center: false,
+    center: true,
     items: 1,
     loop: true,
     stagePadding: 20,
   	margin: 10,
     smartSpeed: 2000,
-    autoplay: true,
+    autoplay: false,
     autoplayHoverPause: true,
     dots: true,
     nav: true,
@@ -221,26 +221,21 @@ var owlCarouselPlugin = function() {
 	if ( $('.logo-slider').length ) {
 
 		$('.logo-slider').owlCarousel({
-			center: false,
-	    loop: true,
-	    stagePadding: 0,
-	    margin: 0,
-	    smartSpeed: 1000,
-	    autoplay: true,
-	    autoplayHoverPause: true,
-	    dots: false,
-	    nav: false,
-	    responsive:{
-		    400:{
-		      items: 2
-		    },
-		    768:{
-		    	items: 3
-		    },
-		    1000:{
-		    	items: 5
-		    }
-	    }
+			loop:true,
+			margin:10,
+			center: true,
+			nav:true,
+			responsive:{
+			0:{
+			items:1
+			},
+			600:{
+			items:1
+			},
+			1000:{
+			items:1
+			}
+			}
 	   });
 	}
 
